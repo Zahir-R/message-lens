@@ -1,0 +1,27 @@
+{
+  "name": "message-filter",
+  "version": "1.0.0",
+  "description": "Important message filter",
+  "main": "dist/whatsapp-filter.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/message-filter.js",
+    "dev": "ts-node src/message-filter.ts"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "nodemailer": "^6.9.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/nodemailer": "^6.4.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "message",
+    "filter"
+  ],
+  "author": "Zahir-R",
+  "license": "MIT"
+}
