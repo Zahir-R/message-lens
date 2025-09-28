@@ -35,7 +35,8 @@ export default function Home() {
     const [sendEmail, setSendEmail] = useState(false);
     const [downloadFile, setDownloadFile] = useState(true);
     const [processing, setProcessing] = useState(false);
-    const [result, setResult] = useState<{ messageCount: number; importantCount: number } | null>(null);
+    const [result, setResult] = useState<{ messageCount: number; importantCount: number; report?: string } | null>(null);
+    const [showPreview, setShowPreview] = useState(false);
     const [toast, setToast] = useState<{
         isVisible: boolean;
         message: string;
@@ -65,6 +66,7 @@ export default function Home() {
         }
     
         setProcessing(true);
+        setShowPreview(false);
         try {            
             const formData = new FormData();
             formData.append('file', file);
@@ -162,6 +164,24 @@ export default function Home() {
                         <h2 className="text-xl font-semibold mb-4">Results</h2>
                         <p>Processed {result.messageCount} messages</p>
                         <p>Found {result.importantCount} important messages</p>
+                        {result.importantCount > 0 && (
+                            <div className="mt-4">
+                                <button
+                                    onClick={() => setShowPreview(!showPreview)}
+                                    className="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 cursor-pointer"
+                                >
+                                    {showPreview ? 'Hide Preview' : 'Show Preview'}
+                                </button>
+                                {showPreview && result.report && (
+                                    <div className="mt-4">
+                                        <h3 className="font-medium mb-2">Report Preview:</h3>
+                                        <pre className="bg-gray-100 p-4 rounded-md overflow-auto max-h-96 text-sm whitespace-pre-wrap">
+                                            {result.report}
+                                        </pre>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 )}
                 
