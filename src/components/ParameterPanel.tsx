@@ -84,26 +84,46 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
         onChange({ ...parameters, keywords: newKeywords });
     };
 
-    const updateCategoryName = (oldName: string, newName: string) => {
-        if (!newName.trim() || newName === oldName) return;
-        
-        const cleanNewName = newName.trim().toLowerCase();
-        if (parameters.keywords[cleanNewName] && cleanNewName !== oldName) {
+    const [categoryNameEdits, setCategoryNameEdits] = useState<{ [oldName: string]: string }>({});
+
+    const handleCategoryNameChange = (oldName: string, newName: string) => {
+        setCategoryNameEdits(edits => ({ ...edits, [oldName]: newName }));
+    };
+
+    const handleCategoryNameBlur = (oldName: string) => {
+        const newName = categoryNameEdits[oldName] ?? oldName;
+        if (!newName.trim() || newName === oldName) {
+            setCategoryNameEdits(edits => {
+                const copy = { ...edits };
+                delete copy[oldName];
+                return copy;
+            });
             return;
         }
-
+        const cleanNewName = newName.trim().toLowerCase();
+        if (parameters.keywords[cleanNewName] && cleanNewName !== oldName) {
+            setCategoryNameEdits(edits => {
+                const copy = { ...edits };
+                delete copy[oldName];
+                return copy;
+            });
+            return;
+        }
         const newKeywords = { ...parameters.keywords };
         const keywords = newKeywords[oldName];
         delete newKeywords[oldName];
         newKeywords[cleanNewName] = keywords;
-
         setKeywordInputs(inputs => {
             const newInputs = { ...inputs };
             newInputs[cleanNewName] = newInputs[oldName];
             delete newInputs[oldName];
             return newInputs;
         });
-
+        setCategoryNameEdits(edits => {
+            const copy = { ...edits };
+            delete copy[oldName];
+            return copy;
+        });
         onChange({ ...parameters, keywords: newKeywords });
     };
 
@@ -184,9 +204,9 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-2">
                                     <input
                                         type="text"
-                                        value={category}
-                                        onChange={(e) => updateCategoryName(category, e.target.value)}
-                                        onBlur={(e) => updateCategoryName(category, e.target.value)}
+                                        value={categoryNameEdits[category] ?? category}
+                                        onChange={(e) => handleCategoryNameChange(category, e.target.value)}
+                                        onBlur={() => handleCategoryNameBlur(category)}
                                         className="font-medium border-b border-dashed border-gray-300 dark:border-gray-400 focus:border-solid focus:border-blue-500 flex-1 min-w-0 text-sm sm:text-base dark:bg-transparent dark:text-white"
                                     />
                                     <button
