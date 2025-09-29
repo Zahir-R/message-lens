@@ -6,6 +6,7 @@ import ParameterPanel from '../components/ParameterPanel';
 import OutputOptions from '../components/OutputOptions';
 import Toast from '../components/Toast';
 import { FilterParameters } from '../../types/index';
+import ThemeToggle from '../components/ThemeToggle';
 
 const defaultParameters: FilterParameters = {
     keywords: {
@@ -134,12 +135,17 @@ export default function Home() {
             setProcessing(false);
         }
     };
+    
     return (
-        <div className="min-h-screen bg-gray-100 py-8">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 transition-colors duration-300 relative">
             <div className="max-w-4xl mx-auto px-4">
-                <h1 className="text-3xl font-bold text-center text-black mb-8">Message Lens</h1>
-        
-                <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-black">
+                <div className="flex justify-center items-center mb-8">
+                    <h1 className="text-3xl font-bold text-center text-black dark:text-white">Message Lens</h1>
+                </div>
+                <div className="fixed top-8 right-8 z-50">
+                    <ThemeToggle />
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6 text-black dark:text-white transition-colors duration-300">
                     <FileUpload onFileSelect={setFile} />
                     <ParameterPanel parameters={parameters} onChange={setParameters} />
                     <OutputOptions
@@ -153,14 +159,14 @@ export default function Home() {
                     <button
                         onClick={handleProcess}
                         disabled={!file || processing}
-                        className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-blue-600 dark:bg-blue-700 text-white py-3 px-4 rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
                     >
                         {processing ? 'Processing...' : 'Process Chat'}
                     </button>
                 </div>
         
                 {result && (
-                    <div className="bg-white rounded-lg shadow-md p-6 text-black" >
+                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-black dark:text-white transition-colors duration-300">
                         <h2 className="text-xl font-semibold mb-4">Results</h2>
                         <p>Processed {result.messageCount} messages</p>
                         <p>Found {result.importantCount} important messages</p>
@@ -168,14 +174,14 @@ export default function Home() {
                             <div className="mt-4">
                                 <button
                                     onClick={() => setShowPreview(!showPreview)}
-                                    className="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 cursor-pointer"
+                                    className="bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 cursor-pointer transition-colors duration-300"
                                 >
                                     {showPreview ? 'Hide Preview' : 'Show Preview'}
                                 </button>
                                 {showPreview && result.report && (
                                     <div className="mt-4">
                                         <h3 className="font-medium mb-2">Report Preview:</h3>
-                                        <pre className="bg-gray-100 p-4 rounded-md overflow-auto max-h-96 text-sm whitespace-pre-wrap">
+                                        <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-md overflow-auto max-h-96 text-sm whitespace-pre-wrap transition-colors duration-300">
                                             {result.report}
                                         </pre>
                                     </div>

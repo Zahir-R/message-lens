@@ -11,11 +11,6 @@ export interface KeywordCategories {
     [category: string]: string[];
 }
 
-export interface CategoryManagement {
-    addCategory: (name: string) => void;
-    removeCategory: (name: string) => void;
-    updateCategoryName: (oldName: string, newName: string) => void;
-}
 export interface FilterPatterns {
     date: boolean;
     time: boolean;

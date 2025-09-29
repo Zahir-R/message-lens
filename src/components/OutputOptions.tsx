@@ -16,7 +16,7 @@ export default function OutputOptions({
     onDownloadChange
     }: OutputOptionsProps) {
         return (
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+            <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
                 <h2 className="text-lg font-semibold mb-4">Output Options</h2>
                 <div className="mb-4">
                     <label className="flex items-center hover:cursor-pointer">
@@ -45,7 +45,7 @@ export default function OutputOptions({
                             value={email}
                             onChange={(e) => onEmailChange(e.target.value)}
                             placeholder="Enter your email"
-                            className="w-full p-2 border rounded mt-2"
+                            className="w-full p-2 border rounded mt-2 dark:bg-gray-600 dark:border-gray-500 dark:text-white transition-colors duration-300"
                         />
                     )}
                 </div>

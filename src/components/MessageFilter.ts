@@ -1,4 +1,4 @@
-import { Message } from '../../types/index';
+import { FilterParameters, Message } from '../../types/index';
 
 export class MessageFilter {
     private defaultPatterns = {
@@ -8,7 +8,7 @@ export class MessageFilter {
         place: /(classroom|hall|auditorium|lab|laboratory)\s+[A-Z0-9]+/i,
     };
     
-    parseChatContent(content: string, parameters: any): Message[] {
+    parseChatContent(content: string, parameters: FilterParameters): Message[] {
         const messages: Message[] = [];
         const lines = content.split('\n');
         const messagePattern = /(\d{2}\/\d{2}\/\d{2}),\s(\d{2}:\d{2})\s-\s([^:]+):\s(.+)/;
@@ -41,7 +41,7 @@ export class MessageFilter {
         return messages;
     }
 
-    private isImportant(message: string, sender: string, parameters: any): 
+    private isImportant(message: string, sender: string, parameters: FilterParameters): 
     { important: boolean; score: number; categories: string[] } {
         let score = 0;
         const senderLower = sender.toLowerCase();

@@ -118,7 +118,7 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
     };
 
     return (
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
             <h2 className="text-lg font-semibold mb-4">Filter Parameters</h2>
         
             <div className="mb-4">
@@ -146,19 +146,19 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                     onChange={(e) => handleImportantSendersChange(e.target.value)}
                     onBlur={handleImportantSendersBlur}
                     placeholder="Prof, CS, IT, etc."
-                    className="w-full p-2 border rounded"
+                    className="w-full p-2 border rounded dark:bg-gray-600 dark:border-gray-500 dark:text-white transition-colors duration-300"
                 />
             </div>
 
             <button
                 onClick={() => setAdvancedVisible(!advancedVisible)}
-                className="text-blue-600 hover:text-blue-800 text-sm font-medium mb-2 cursor-pointer"
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium mb-2 cursor-pointer transition-colors duration-300"
             >
                 {advancedVisible ? 'Hide' : 'Show'} Advanced Settings
             </button>
 
             {advancedVisible && (
-                <div className="mt-4 p-4 bg-white rounded border">
+                <div className="mt-4 p-4 bg-white dark:bg-gray-600 rounded border dark:border-gray-500 transition-colors duration-300">
                     <h3 className="font-medium mb-2">Keyword Categories</h3>
 
                     <div className="mb-4 flex flex-col sm:flex-row gap-2">
@@ -167,12 +167,12 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                             value={newCategoryName}
                             onChange={(e) => setNewCategoryName(e.target.value)}
                             placeholder="New category name"
-                            className="flex-1 p-2 border rounded text-sm min-w-0"
+                            className="flex-1 p-2 border rounded text-sm min-w-0 dark:bg-gray-500 dark:border-gray-400 dark:text-white transition-colors duration-300"
                             onKeyPress={(e) => e.key === 'Enter' && addNewCategory()}
                         />
                         <button
                             onClick={addNewCategory}
-                            className="font-medium bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 text-sm cursor-pointer flex items-center justify-center gap-1 sm:w-auto w-full sm:px-2 py-1"
+                            className="font-medium bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 text-sm cursor-pointer flex items-center justify-center gap-1 sm:w-auto w-full sm:px-2 py-1 transition-colors duration-300"
                         >
                             <FaPlus /> Add
                         </button>
@@ -180,18 +180,18 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
 
                     <div className="space-y-3">
                         {Object.entries(parameters.keywords).map(([category]) => (
-                            <div key={category} className="p-3 border rounded">
+                            <div key={category} className="p-3 border rounded dark:border-gray-500 transition-colors duration-300">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-2">
                                     <input
                                         type="text"
                                         value={category}
                                         onChange={(e) => updateCategoryName(category, e.target.value)}
                                         onBlur={(e) => updateCategoryName(category, e.target.value)}
-                                        className="font-medium border-b border-dashed border-gray-300 focus:border-solid focus:border-blue-500 flex-1 min-w-0 text-sm sm:text-base"
+                                        className="font-medium border-b border-dashed border-gray-300 dark:border-gray-400 focus:border-solid focus:border-blue-500 flex-1 min-w-0 text-sm sm:text-base dark:bg-transparent dark:text-white"
                                     />
                                     <button
                                         onClick={() => removeCategory(category)}
-                                        className="bg-red-500 text-white rounded hover:bg-red-600 text-sm cursor-pointer flex items-center justify-center gap-1 sm:w-auto w-full sm:px-2 py-1"
+                                        className="bg-red-500 text-white rounded hover:bg-red-600 text-sm cursor-pointer flex items-center justify-center gap-1 sm:w-auto w-full sm:px-2 py-1 transition-colors duration-300"
                                     >
                                         <FaTrash /> Delete
                                     </button>
@@ -201,7 +201,7 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                                     value={keywordInputs[category] ?? ''}
                                     onChange={(e) => handleKeywordInputChange(category, e.target.value)}
                                     onBlur={() => handleKeywordInputBlur(category)}
-                                    className="w-full p-2 border rounded text-sm"
+                                    className="w-full p-2 border rounded text-sm dark:bg-gray-500 dark:border-gray-400 dark:text-white transition-colors duration-300"
                                     placeholder="comma, separated, keywords"
                                 />
                             </div>
@@ -216,7 +216,7 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                                 type="number"
                                 value={parameters.scores.keywordScore}
                                 onChange={(e) => updateScore('keywordScore', Number(e.target.value))}
-                                className="w-full p-2 border rounded text-sm"
+                                className="w-full p-2 border rounded text-sm dark:bg-gray-500 dark:border-gray-400 dark:text-white transition-colors duration-300"
                                 min="1"
                             />
                         </div>
@@ -226,7 +226,7 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                                 type="number"
                                 value={parameters.scores.patternScore}
                                 onChange={(e) => updateScore('patternScore', Number(e.target.value))}
-                                className="w-full p-2 border rounded text-sm"
+                                className="w-full p-2 border rounded text-sm dark:bg-gray-500 dark:border-gray-400 dark:text-white transition-colors duration-300"
                                 min="1"
                             />
                         </div>
@@ -236,7 +236,7 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                                 type="number"
                                 value={parameters.scores.senderScore}
                                 onChange={(e) => updateScore('senderScore', Number(e.target.value))}
-                                className="w-full p-2 border rounded text-sm"
+                                className="w-full p-2 border rounded text-sm dark:bg-gray-500 dark:border-gray-400 dark:text-white transition-colors duration-300"
                                 min="1"
                             />
                         </div>
@@ -246,7 +246,7 @@ export default function ParameterPanel({ parameters, onChange }: ParameterPanelP
                                 type="number"
                                 value={parameters.scores.threshold}
                                 onChange={(e) => updateScore('threshold', Number(e.target.value))}
-                                className="w-full p-2 border rounded text-sm"
+                                className="w-full p-2 border rounded text-sm dark:bg-gray-500 dark:border-gray-400 dark:text-white transition-colors duration-300"
                                 min="1"
                             />
                         </div>
