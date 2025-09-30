@@ -18,7 +18,7 @@ const defaultParameters: FilterParameters = {
         link: true,
         place: true
     },
-    importantSenders: ['SYS', 'CS', 'IT', 'Ms', 'Mr', 'Prof'],
+    importantSenders: ['SYS', 'CS', 'IT', 'Admin'],
     scores: {
         keywordScore: 3,
         patternScore: 2,
